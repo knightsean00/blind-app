@@ -62,7 +62,7 @@ function DateSchedule(props) {
     if (blindEvents == null || realValue == null) {
         return (
             <div className="full">
-                <h1 style={{ textAlign: "center" }}>Invalid Event data</h1>
+                <h1 style={{ textAlign: "center" }}>Invalid event data</h1>
             </div>
         )
     }
@@ -72,22 +72,16 @@ function DateSchedule(props) {
             <div className="row">
                 <div className="col-md-12">
                     <h1>{props.checkSum ? "Watcher" : "Blind"}</h1>
-                    {props.test != null && props.test === true ?
-                        <>
-                            <p>Compressed data</p>
-                            <p style={{ wordWrap: "break-word" }}>{blindEvents.compress()}</p>
-                            <p>Checksum</p>
-                            <p style={{ wordWrap: "break-word" }}>{checkSum(blindEvents.toString())}</p>
-                        </> :
-                        <></>}
-                    {/* <p>{blindEvents.toString()}</p>
-                    <p>{checkSum(blindEvents.toString())}</p>
-                    <p>{blindEvents.compress()}</p>
-                    <p>{checkSum(blindEvents.compress())}</p>
-                    <p>{decompressFromEncodedURIComponent(blindEvents.compress())}</p>
-                    <p>{EventList.decompress(blindEvents.compress()).toString()}</p>
-                    <p>{checkSum(EventList.decompress(blindEvents.compress()).toString())}</p> */}
-                    {/* <p>{props.data}</p> */}
+                    {
+                        props.test != null && props.test === true ?
+                            <>
+                                <p>Compressed data</p>
+                                <p style={{ wordWrap: "break-word" }}>{blindEvents.compress()}</p>
+                                <p>Checksum</p>
+                                <p style={{ wordWrap: "break-word" }}>{checkSum(blindEvents.toString())}</p>
+                            </> :
+                            <></>
+                    }
                 </div>
             </div>
             {blindEvents.events.map((i, idx) => <div className="row" key={idx}> {i.render(realValue === props.checkSum)} </div>)}
