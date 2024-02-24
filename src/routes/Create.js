@@ -1,8 +1,6 @@
 import { MDXEditor, UndoRedo, BoldItalicUnderlineToggles, toolbarPlugin, linkPlugin, linkDialogPlugin, CreateLink } from "@mdxeditor/editor";
 import { Event, EventList, checkSum } from "../commons/event";
 import { DateTime } from "luxon";
-import { decompressFromEncodedURIComponent } from "lz-string";
-import { PropTypes } from 'prop-types';
 import { useState, useEffect } from "react";
 import zones from "tzdata";
 
