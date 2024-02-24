@@ -52,7 +52,7 @@ function DateSchedule(props) {
             console.log("Invalid event data");
         }
 
-        Notification.requestPermission().then((res) => { console.log(res); })
+        // Notification.requestPermission().then((res) => { console.log(res); })
 
         setInterval(() => {
             setTime(new Date());

@@ -100,21 +100,21 @@ class Event {
         if (!this.showAll && !this.notified) {
             this.notified = true;
             
-            if (window.Notification) {
-                Notification.requestPermission().then((res) => {
-                    if (res === "granted") {
-                        navigator.serviceWorker.ready.then((registration) => {
-                            registration.showNotification(
-                                `New event revealed, starting at ${this.start.toLocaleString(DateTime.TIME_WITH_SECONDS)}`,
-                                {
-                                    body: RemoveMarkdown(this.markdown),
-                                    icon: `${process.env.PUBLIC_URL}/logo512.png`
-                                }
-                            )
-                        })
-                    }
-                });
-            }
+            // if (window.Notification) {
+            //     Notification.requestPermission().then((res) => {
+            //         if (res === "granted") {
+            //             navigator.serviceWorker.ready.then((registration) => {
+            //                 registration.showNotification(
+            //                     `New event revealed, starting at ${this.start.toLocaleString(DateTime.TIME_WITH_SECONDS)}`,
+            //                     {
+            //                         body: RemoveMarkdown(this.markdown),
+            //                         icon: `${process.env.PUBLIC_URL}/logo512.png`
+            //                     }
+            //                 )
+            //             })
+            //         }
+            //     });
+            // }
         }
         return (
             <>
