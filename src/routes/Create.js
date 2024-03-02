@@ -131,15 +131,16 @@ function EventElement({ timezone, lastDate, blindEvent, onBlindEventChange, idx,
                 {
                     idx === 0 ?
                         <p className="label-title">*Display Time</p> :
-                        <p className="label-title">Display Time (leave blank to take previous end time)</p>
+                        <p className="label-title">Display Time (leave blank to take previous start time)</p>
                 }
 
                 <input type="time" className={isValidDisplayTime || idx !== 0 ? "" : "invalid-input"} value={displayTime} onChange={ev => updateTimes(date, startTime, endTime, ev.target.value)} onBlur={() => setIsValidDisplayTime(timeCheck(displayTime))} />
                 {
                     isValidDisplayTime || idx !== 0 ?
-                        <></> :
-                        <p className="invalid label">Invalid time</p>
+                    <></> :
+                    <p className="invalid label">Invalid time</p>
                 }
+                <p className="note">This is the time the event should actually appear to the user, not necessarily when it is active</p>
 
                 <p className="label-title pt-3">*Description</p>
                 <MDXEditor
