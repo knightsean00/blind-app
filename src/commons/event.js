@@ -2,7 +2,6 @@ import { compressToEncodedURIComponent, decompressFromEncodedURIComponent } from
 import { DateTime } from "luxon";
 import Showdown from "showdown";
 import parse from "html-react-parser";
-import RemoveMarkdown from "remove-markdown";
 
 const converter = new Showdown.Converter();
 
@@ -89,10 +88,10 @@ class Event {
         if (this.start < now && now < this.end) {
             return (
                 <>
-                    <div className="col-md-5 active">
+                    <div className="col-4 active">
                         <p>{now.toLocaleString(DateTime.DATETIME_SHORT_WITH_SECONDS)}</p>
                     </div>
-                    <div className="col-md-7 active">{this.toDisplay}</div>
+                    <div className="col-8 active">{this.toDisplay}</div>
                 </>
             );
         }
@@ -118,10 +117,10 @@ class Event {
         }
         return (
             <>
-                <div className="col-md-5 greyed">
+                <div className="col-4 greyed">
                     <p>{this.start.toLocaleString(DateTime.DATETIME_SHORT_WITH_SECONDS)}</p>
                 </div>
-                <div className="col-md-7 greyed">{this.toDisplay}</div>
+                <div className="col-8 greyed">{this.toDisplay}</div>
             </>
         );
     }

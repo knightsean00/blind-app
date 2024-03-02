@@ -1,4 +1,5 @@
 import { MDXEditor, UndoRedo, BoldItalicUnderlineToggles, toolbarPlugin, linkPlugin, linkDialogPlugin, CreateLink } from "@mdxeditor/editor";
+import Header from "../components/Header";
 import { Event, EventList, checkSum } from "../commons/event";
 import { DateTime } from "luxon";
 import { useState, useEffect } from "react";
@@ -230,82 +231,85 @@ function Create({ linkCheckSum, linkData }) {
 
 
     return (
-        <div className="container">
-            <div className="row">
-                <div className="col-md-12">
-                    <h1>Create</h1>
-                    <p className="label-title">Timezone to use</p>
-                    <select name="timezone" value={timezone} onBlur={() => setIsValidTimezone(timezoneCheck(timezone))} onChange={ev => setTimezone(ev.target.value)}>
+        <>
+            <Header />
+            <div className="container">
+                <div className="row">
+                    <div className="col-md-12">
+                        <h1>Create</h1>
+                        <p className="label-title">Timezone to use</p>
+                        <select name="timezone" value={timezone} onBlur={() => setIsValidTimezone(timezoneCheck(timezone))} onChange={ev => setTimezone(ev.target.value)}>
+                            {
+                                Object.keys(zones.zones).map((val, idx) => <option value={val} key={idx}>{val}</option>)
+                            }
+                        </select>
                         {
-                            Object.keys(zones.zones).map((val, idx) => <option value={val} key={idx}>{val}</option>)
+                            isValidTimezone ?
+                                <></> :
+                                <p className="invalid label">Invalid timezone</p>
                         }
-                    </select>
-                    {
-                        isValidTimezone ?
-                            <></> :
-                            <p className="invalid label">Invalid timezone</p>
-                    }
-                </div>
-            </div>
-            {
-                blindEvents.map((val, idx) =>
-                    <EventElement
-                        key={idx}
-                        idx={idx}
-                        maxIdx={blindEvents.length - 1}
-                        onDelete={() => deleteEvent(idx)}
-                        lastDate={blindEvents.length > 1 && blindEvents[blindEvents.length - 2].start != null ? blindEvents[blindEvents.length - 2].start.toFormat("yyyy-MM-dd") : null}
-                        onBlindEventChange={handleEventChange}
-                        timezone={timezone}
-                        blindEvent={blindEvents[idx]}
-                    />
-                )
-            }
-            <div className="row py-5">
-                <div className="col-md-12 text-center">
-                    <button onClick={() => setEvents([...blindEvents, new Event()])}>+ Add Event</button>
-                </div>
-            </div>
-            {
-                blindData != null && blindData.length > 0 && blindCheckSum != null && blindCheckSum > 0 ?
-                    <div className="row pt-3 pb-5">
-                        <div className="col-md-12 text-center">
-                            <p>The URLs generated will contain all the data necessary for the date, please copy <strong>All OF THEM</strong> somewhere safe!</p>
-                            <p>The first button (Participants) will copy the link that you should provide to the date-goers, this link should display your events as normal</p>
-                            <p>
-                                The second button (Spectators) will copy the link that you and other spectators of the date
-                                should use, this link will display all of your events regardless of display time.
-
-                                <strong>
-                                    YOU SHOULD NOT PROVIDE THIS LINK TO THE PARTICIPANTS, IT WILL TELL THEM OF ALL OF THE EVENTS
-                                    YOU HAVE PLANNED!
-                                </strong>
-
-                                You might also notice that your event list looks a bit different than how you arranged it, that is because we will automatically
-                                sort the events based on their start time.
-                            </p>
-                            <p>
-                                The third button (Editors) will provide you a link so you can return to this page and make changes.
-                                Just like the (Spectators) button, you should not give this link to the participants! Also, if you make changes,
-                                please note that you will have to regnerate the link and provide the new link to the participants because this service
-                                is serverless and stores all of the date information in the link!
-                            </p>
-                            {/* <p>{blindData != null ? blindData : ""}</p> */}
-                        </div>
-                        <div className="col-md-4 text-center">
-                            <button onClick={() => copyLink(`/date/${blindData}`)}>Copy Participants</button>
-                        </div>
-                        <div className="col-md-4 text-center">
-                            <button onClick={() => copyLink(`/watcher/${blindCheckSum}/${blindData}`)}>Copy Spectators</button>
-                        </div>
-                        <div className="col-md-4 text-center">
-                            <button onClick={() => copyLink(`/edit/${blindCheckSum}/${blindData}`)}>Copy Editors</button>
-                        </div>
                     </div>
-                    :
-                    <></>
-            }
-        </div>
+                </div>
+                {
+                    blindEvents.map((val, idx) =>
+                        <EventElement
+                            key={idx}
+                            idx={idx}
+                            maxIdx={blindEvents.length - 1}
+                            onDelete={() => deleteEvent(idx)}
+                            lastDate={blindEvents.length > 1 && blindEvents[blindEvents.length - 2].start != null ? blindEvents[blindEvents.length - 2].start.toFormat("yyyy-MM-dd") : null}
+                            onBlindEventChange={handleEventChange}
+                            timezone={timezone}
+                            blindEvent={blindEvents[idx]}
+                        />
+                    )
+                }
+                <div className="row py-5">
+                    <div className="col-md-12 text-center">
+                        <button onClick={() => setEvents([...blindEvents, new Event()])}>+ Add Event</button>
+                    </div>
+                </div>
+                {
+                    blindData != null && blindData.length > 0 && blindCheckSum != null && blindCheckSum > 0 ?
+                        <div className="row pt-3 pb-5">
+                            <div className="col-md-12 text-center">
+                                <p>The URLs generated will contain all the data necessary for the date, please copy <strong>All OF THEM</strong> somewhere safe!</p>
+                                <p>The first button (Participants) will copy the link that you should provide to the date-goers, this link should display your events as normal</p>
+                                <p>
+                                    The second button (Spectators) will copy the link that you and other spectators of the date
+                                    should use, this link will display all of your events regardless of display time.
+
+                                    <strong>
+                                        YOU SHOULD NOT PROVIDE THIS LINK TO THE PARTICIPANTS, IT WILL TELL THEM OF ALL OF THE EVENTS
+                                        YOU HAVE PLANNED!
+                                    </strong>
+
+                                    You might also notice that your event list looks a bit different than how you arranged it, that is because we will automatically
+                                    sort the events based on their start time.
+                                </p>
+                                <p>
+                                    The third button (Editors) will provide you a link so you can return to this page and make changes.
+                                    Just like the (Spectators) button, you should not give this link to the participants! Also, if you make changes,
+                                    please note that you will have to regnerate the link and provide the new link to the participants because this service
+                                    is serverless and stores all of the date information in the link!
+                                </p>
+                                {/* <p>{blindData != null ? blindData : ""}</p> */}
+                            </div>
+                            <div className="col-md-4 text-center">
+                                <button onClick={() => copyLink(`/date/${blindData}`)}>Copy Participants</button>
+                            </div>
+                            <div className="col-md-4 text-center">
+                                <button onClick={() => copyLink(`/watcher/${blindCheckSum}/${blindData}`)}>Copy Spectators</button>
+                            </div>
+                            <div className="col-md-4 text-center">
+                                <button onClick={() => copyLink(`/edit/${blindCheckSum}/${blindData}`)}>Copy Editors</button>
+                            </div>
+                        </div>
+                        :
+                        <></>
+                }
+            </div>
+        </>
     );
 }
 

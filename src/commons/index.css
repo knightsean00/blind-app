@@ -56,9 +56,9 @@ h1 {
   letter-spacing: 1rem;
 }
 
-p {
+p, li {
   font-family: 'EB Garamond', sans-serif;
-  font-size: 1.25em;
+  font-size: 1.45em;
 }
 
 a {
@@ -206,4 +206,31 @@ button:hover {
 .mdxeditor-popup-container {
   background-color: black !important;
   /* border: 1px solid #ddd; */
+}
+
+div {
+  box-sizing: border-box;
+}
+
+.logo {
+  max-height: 4rem;
+  transition: .35s filter linear;
+}
+
+.logo:hover {
+  filter: brightness(1.3);
+  transition: .35s filter linear;
+}
+
+.note {
+  font-size: .9em;
+  font-style: italic;
+}
+
+.footer-text {
+  font-size: 1em;
+}
+
+.colored {
+  color: #7d79cb;
 }
